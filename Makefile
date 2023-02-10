@@ -1,7 +1,5 @@
 index.html: talk.md talk.css
 	python refreeze/freeze.py
-	@cp index.html /tmp
-	@cat /tmp/index.html | sed "s;img/;/classes/img/;" > index.html
 	vim -s script index.html
 
 test:
