@@ -487,16 +487,3 @@ dog = Dog.snoopy()
 print(dog.breed, dog.name)
 
 ~~~
----
-
-## Few practical tricks
-
-* Use separate file to describe a class and import it into the main program
-* If you want to add some code to the class file, which is not definition of
-  the class, use the following syntax
-
-~~~python
-if __name__ == "__main__":
-    ...
-    ...
-~~~
