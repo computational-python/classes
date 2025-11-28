@@ -1,14 +1,3 @@
-<style>
-.centered {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
-<link rel="stylesheet" href="/js/highlight/styles/gruvbox-light.css">
-<script src="/js/highlight/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
 # Classes
 
 ---
@@ -18,7 +7,7 @@ layout: false
 
 ## Variables and Functions
 
-DATA: Variables
+Data: Variables
 ~~~python
 str1 = "Hello World!"
 str2 = "Python Programming"
@@ -43,7 +32,8 @@ def printinfo(name, age):
 
 ### Object Oriented Programming
 
-* objects used to make program
+* objects are used to make a program
+* objects collect data functions and variable into one single unit
 * suitable for large programs
 
 **Everything in Python is an *object*, and almost everything has attributes
@@ -51,10 +41,8 @@ def printinfo(name, age):
 
 ---
 
-##Objects and Classes
 
-Class - blueprint for creation of an object
-
+## Class - a blueprint for creation of an object
 
 ~~~python
 class Person:
@@ -67,14 +55,14 @@ class Person:
 
 ~~~
 
-## Class definition in Python
+* Class definition in Python
 
 ~~~
 class Name:
     ...
 ~~~
 
-##Most important special method is a *initializer*
+* Most important special method is a *initializer*
 
 ~~~
 def __init__(self, <list of parameters>):
@@ -83,17 +71,14 @@ def __init__(self, <list of parameters>):
 
 ---
 
-##Objects and classes
-
-###Ordinary class instance methods are defined as
+*  Ordinary class instance methods are defined as
 
 ~~~
 def name_of_method(self, <list of paramters>):
     ...
 ~~~
 
-###self is passed to all class methods and has the following meaning
-
+* self is passed to all class methods and has the following meaning
 * In the constructor init refers to newly created object
 * In ordinary instance methods it refers to the object for which this method is called
 
@@ -104,20 +89,20 @@ more correct description*
 
 ---
 
-##Objects and Classes
-
 ## Using objects in a program
 
 * creating an **instance** of the class in a program
 
 ~~~python
-p = Person("Adam", "Smith")
+>>> p = Person("Adam", "Smith")
 ~~~
 
 * accessing and modifying instance attributes
 
 ~~~python
-p.given_name = 'John'
+>>> print(p.given_name)
+Adam
+>>> p.given_name = 'John'
 ~~~
 
 * calling instance methods
@@ -132,10 +117,20 @@ p.display_person()
 
 ~~~python
 class Person:
-    number = 0  # class attribute
+    """
+    Person class with class and instance attributes
+
+    class attribute:
+        number - counts number of Person instances created
+    instance attributes:
+        given_name - person's given name
+        surname - person's surname
+    """
+    number = 0
+
     def __init__(self, given_name, surname):
-        self.given_name = given_name  # instance attribute
-        self.surname = surname        # instance attribute
+        self.given_name = given_name
+        self.surname = surname
         Person.number += 1
 
     def __str__(self):
@@ -150,52 +145,44 @@ class Person:
 
 ## Special methods and overloading
 
-* constructor
-
+* initializer: creates `p` and  calls `p.__init__()`
 ~~~
-p = ClassName() # after creation calls p.__init__()
-~~~
-
-* official string representation
-
-~~~
-repr(p) # calls p.__repr__()
+p = ClassName()
 ~~~
 
-* informal string representation
-
+* official string representation: calls `p.__repr__()`
 ~~~
-str(p) # calls p.__str__()
+repr(p)
 ~~~
 
-* getting attribute
-
+* informal string representation: calls `p.__str__()`
 ~~~
-p.attr # calls p._getattribute__('attr')
+str(p) 
+~~~
+
+* getting attribute: calls `p.__getattribute__('attr')`
+~~~
+p.attr
 ~~~
 
 ---
 
-* setting attribute
-
+* setting attribute: calls `p.__setattribute__('attr', value)`
 ~~~
-p.attr  = value # calls p._setattribute__('attr', value)
-~~~
-
-* getting list of attributes
-
-~~~
-dir(p) # calls x.__dir__()
+p.attr  = value
 ~~~
 
-* overloading binary operators
-
+* getting list of attributes: calls `p.__dir__()`
 ~~~
-p.__add__(self, other) # addition, +
-p.__sub__(self, other) # subtraction, -
-p.__mul__(self, other) # multiplication, *
-p.__truediv__(self, other) # division, /
-p.__floordiv__(self, other) # floor division, //
+dir(p)
+~~~
+
+* overloading binary operators:
+~~~
+p + q: calls p.__add__(q)
+p - q: calls p.__sub__(q)
+p * q: calls p.__mul__(q)
+p / q: calls p.__truediv__(q)
 ~~~
 
 ---
@@ -230,7 +217,7 @@ isinstance(Object, Class) # True or False
 
 ---
 
-###Simple example of parent (base) and child (derived) classes
+### Simple example of parent (base) and child (derived) classes
 
 ~~~python
 >>> class Parent:
@@ -260,7 +247,7 @@ Calling derived method
 
 ---
 
-###When to use inheritance?
+### When to use inheritance?
 
 * to avoid replication of code (same attributes and methods in different
   classes)
@@ -278,13 +265,13 @@ class DerivedClass(moduleName.BaseClass):
 
 ---
 
-###Example employee class
+### Example employee class
 
 ~~~python
 >>> class Person:
 ...     def __init__(self, given_name, surname):
-...         self.given_name = given_name # instance attribute
-...         self.surname = surname  # instance attribute
+...         self.given_name = given_name
+...         self.surname = surname
 ... 
 ...     def get_person(self):
 ...         return "Person : " + self.given_name + " " + self.surname
