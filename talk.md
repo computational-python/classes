@@ -74,7 +74,7 @@ class Name:
     ...
 ~~~
 
-##Most important special method is a *constuctor*
+##Most important special method is a *initializer*
 
 ~~~
 def __init__(self, <list of parameters>):
@@ -85,7 +85,7 @@ def __init__(self, <list of parameters>):
 
 ##Objects and classes
 
-###Ordinary class methods are defined as
+###Ordinary class instance methods are defined as
 
 ~~~
 def name_of_method(self, <list of paramters>):
@@ -95,11 +95,11 @@ def name_of_method(self, <list of paramters>):
 ###self is passed to all class methods and has the following meaning
 
 * In the constructor init refers to newly created object
-* In ordinary class methods it refers to the object for this method is called
+* In ordinary instance methods it refers to the object for which this method is called
 
 *Note: the `__init__` method is often called a constructor, in analogy with
-other OO languages, but the object has already been constructed entring the
-function and is refered to with by the `self` variable. Initializer would be a
+other OO languages, but the object has already been constructed entering the
+function and is refered to with the `self` variable. Initializer would be a
 more correct description*
 
 ---
@@ -108,19 +108,19 @@ more correct description*
 
 ## Using objects in a program
 
-* creating an **instance** of an object in a program
+* creating an **instance** of the class in a program
 
 ~~~python
 p = Person("Adam", "Smith")
 ~~~
 
-* accessing instance attributes in a program
+* accessing and modifying instance attributes
 
 ~~~python
 p.given_name = 'John'
 ~~~
 
-* calling instance methods in a program
+* calling instance methods
 
 ~~~python
 p.display_person()
@@ -145,31 +145,6 @@ class Person:
 
 * class attributes are shared by instances
 * instance attributes are unique to each instance
-
----
-
-## Data encapsulation in object oriented programming
-
-* Public attributes can be freely used in side or outside of a class definition
-
-~~~python
-self.name = value #Public attribute
-~~~
-
-* Protected attributes should not be used outside of the class definition
-unless inside of a subclass definition
-
-~~~python
-self._value = value # Protected attribute
-~~~
-
-* Private atributes are inaccessible and invisible. It's is neihter possible to
-  read nor write to those attribtes, except inside of the class definition
-itself
-
-~~~python
-self.__name = value #Private attribute
-~~~
 
 ---
 
@@ -216,18 +191,18 @@ dir(p) # calls x.__dir__()
 * overloading binary operators
 
 ~~~
-p._add__(self, other) # addition, +
-p._sub__(self, other) # subtraction, -
-p._mul__(self, other) # multiplication, *
-p._truediv__(self, other) # division, /
-p._floordiv__(self, other) # floor division, //
+p.__add__(self, other) # addition, +
+p.__sub__(self, other) # subtraction, -
+p.__mul__(self, other) # multiplication, *
+p.__truediv__(self, other) # division, /
+p.__floordiv__(self, other) # floor division, //
 ~~~
 
 ---
 
 ## Class inheritance
 
-* Making derived class from base class:
+* Making a derived class from a base class:
 
 ~~~
 class DerivedClassName(BaseClass): #inheriting from one base class
@@ -239,12 +214,9 @@ class DerivedClassName(BaseClass1, BaseClass2): #inheriting from multiple base c
     ...
 ~~~
 
-* All methods ar virutal, i.e. overriding of methods is an intrinsic property
-  of Python
-
 * Private attributes are not inherited
 
-* Relationship between derived ans base classes
+* Relationship between derived and base classes
 
 ~~~
 issubclass(DerivedClass, BaseClass) #True or False
@@ -336,7 +308,7 @@ Person : John Doe, salary: 29500
 
 ---
 
-###Replacing repeated if-statements with inheritance
+### Replacing repeated if-statements with inheritance
 
 ~~~python
 >>> def action(animal, name):
