@@ -4,192 +4,237 @@
 
 layout: false
 
+## Paradigms of programming
 
-## Variables and Functions
+* Procedure Oriented Programming
+* Object Oriented Programming
+* Functional Programming
+* Logic Programming
+* Event Driven Programming
+* Aspect Oriented Programming
+* etc.
 
-Data: Variables
+---
+
+## Procedure Oriented Programming
+
+* program is a sequence of instructions
+* data is separate from functions
+* functions operate on data
+
 ~~~python
-str1 = "Hello World!"
-str2 = "Python Programming"
-lst = ['physics', 'chemistry', 1997, 2000]
+def print_book(book_data):
+    title, author, year = book_data
+    print(f"Title: {title}")
+    print(f"Author: {author}")
+    print(f"Publication Year: {year}")
 ~~~
 
-Actions: Functions
-~~~python
-def printinfo(name, age):
-    print("Name" , name)
-    print("Age", age)
 ~~~
+>>> book_data = ("Python Essential Reference", "David Beazley", 2009)
+>>> print_book(book_data)
+Title: Python Essential Reference
+Author: David Beazley
+Publication Year: 2009
+
+~~~
+
+
+---
+
+## Object oriented programming
+
+* classes are used to make up a program
+* functions and data a unit: an object
+* an object has data attributes and methods
+* methods are functions that operate on its data
+* enables reuse of code
+
+
+* Everything in Python is an *object*, and almost everything has attributes
+(data) and methods (functions for manipulating data)*
 
 ---
 
 ## Objects and Classes
 
-### Procedure Oriented Programming
-
-* functions and variables used to make program
-* suitable for small/medium programs
-
-### Object Oriented Programming
-
-* objects are used to make a program
-* objects collect data functions and variable into one single unit
-* suitable for large programs
-
-**Everything in Python is an *object*, and almost everything has attributes
-(data) and methods (functions for manipulating data)**
-
----
-
-
-## Class - a blueprint for creation of an object
+### Class - blueprint for creation of an object
 
 ~~~python
-class Person:
-    def __init__(self, given_name, surname):
-        self.given_name = given_name
-        self.surname = surname
+class Book:
+    def __init__(self, title, author, year)
+        self.title = title
+        self.author = author
+        self.year = year
 
     def __str__(self):
-        return f"Person: {self.given_name} {self.surname}"
+        return \
+f"""
+Title: {self.title}
+Author: {self.author}
+Publication Year: {self.year}
+"""
+~~~
+
+~~~
+>>> book = Book("Python Essential Reference", "David Beazley", 2009)
+>>> print(book)
+
+Title: Python Essential Reference
+Author: David Beazley
+Publication Year: 2009
 
 ~~~
 
-* Class definition in Python
+* `Book` is the recipe
+* `book` is the created object: an instance of the class Book
+
+### Class definition in Python
+
+* the `class` keyword
+* the name of the class + ":" (CamelCase by convention)
+* the body of the class definition is indented
+* the body contains attributes and methods (functions) of the class
 
 ~~~
-class Name:
+class ClassName:
     ...
 ~~~
 
-* Most important special method is a *initializer*
+### Special methods in Python classes
 
-~~~
-def __init__(self, <list of parameters>):
-    ...
-~~~
+* special methods have leading and trailing double underscores
+* `__init__` initializes an object
+* called after the object is created
+* `__str__` returns a string representation of an object
 
----
+### What is `self`?
 
-*  Ordinary class instance methods are defined as
-
-~~~
-def name_of_method(self, <list of paramters>):
-    ...
-~~~
-
-* self is passed to all class methods and has the following meaning
 * In the constructor init refers to newly created object
-* In ordinary instance methods it refers to the object for which this method is called
-
-*Note: the `__init__` method is often called a constructor, in analogy with
-other OO languages, but the object has already been constructed entering the
-function and is refered to with the `self` variable. Initializer would be a
-more correct description*
+* In ordinary class methods it refers to the object for this method is called
 
 ---
 
-## Using objects in a program
 
-* creating an **instance** of the class in a program
+### Using objects in a program
 
-~~~python
->>> p = Person("Adam", "Smith")
+* define class
+
+~~~
+class Person:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def whoami(self):
+        return f"My name is {self.last_name}, {self.first_name} {self.last_name}"
 ~~~
 
-* accessing and modifying instance attributes
+* creating an **instance** of an object
 
 ~~~python
->>> print(p.given_name)
-Adam
->>> p.given_name = 'John'
+p = Person("Adam", "Smith")
 ~~~
 
-* calling instance methods
+---
+
+* accessing instance attributes
+
+~~~
+print(p.first_name) #Adam
+~~~
+
+* setting instance attributes
+
+~~~
+p.first_name = "John"
+~~~
+
+
+* calling instance methods in a program
 
 ~~~python
-p.display_person()
+p.whoami() #My name is Smith, John Smith
 ~~~
 
 ---
 
 ## Instance attributes vs Class attributes
 
-~~~python
+~~~
 class Person:
-    """
-    Person class with class and instance attributes
-
-    class attribute:
-        number - counts number of Person instances created
-    instance attributes:
-        given_name - person's given name
-        surname - person's surname
-    """
     number = 0
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
 
-    def __init__(self, given_name, surname):
-        self.given_name = given_name
-        self.surname = surname
-        Person.number += 1
-
-    def __str__(self):
-        return f"Person: {self.given_name} {self.surname}"
-
+    def whoami(self):
+        return f"My name is {self.last_name}, {self.first_name} {self.last_name}"
 ~~~
 
+* `number` is a class attribute
 * class attributes are shared by instances
+* `first_name` and `last_name` are instance attributes
 * instance attributes are unique to each instance
 
 ---
 
+
 ## Special methods and overloading
 
-* initializer: creates `p` and  calls `p.__init__()`
+* constructor
+
 ~~~
-p = ClassName()
+p = ClassName() # after creation calls p.__init__()
 ~~~
 
-* official string representation: calls `p.__repr__()`
+* official string representation
+
 ~~~
-repr(p)
+repr(p) # calls p.__repr__()
 ~~~
 
-* informal string representation: calls `p.__str__()`
+* informal string representation
+
 ~~~
-str(p) 
+str(p) # calls p.__str__()
 ~~~
 
-* getting attribute: calls `p.__getattribute__('attr')`
+* getting attribute
+
 ~~~
-p.attr
+p.attr # calls p._getattribute__('attr')
 ~~~
 
 ---
 
-* setting attribute: calls `p.__setattribute__('attr', value)`
+* setting attribute
+
 ~~~
-p.attr  = value
+p.attr  = value # calls p._setattribute__('attr', value)
 ~~~
 
-* getting list of attributes: calls `p.__dir__()`
+* getting list of attributes
+
 ~~~
-dir(p)
+dir(p) # calls x.__dir__()
 ~~~
 
-* overloading binary operators:
+* overloading binary operators
+
 ~~~
-p + q: calls p.__add__(q)
-p - q: calls p.__sub__(q)
-p * q: calls p.__mul__(q)
-p / q: calls p.__truediv__(q)
+p._add__(self, other) # addition, +
+p._sub__(self, other) # subtraction, -
+p._mul__(self, other) # multiplication, *
+p._truediv__(self, other) # division, /
+p._floordiv__(self, other) # floor division, //
 ~~~
 
 ---
 
 ## Class inheritance
 
-* Making a derived class from a base class:
+* Making derived class from base class:
 
 ~~~
 class DerivedClassName(BaseClass): #inheriting from one base class
@@ -201,9 +246,12 @@ class DerivedClassName(BaseClass1, BaseClass2): #inheriting from multiple base c
     ...
 ~~~
 
+* All methods ar virutal, i.e. overriding of methods is an intrinsic property
+  of Python
+
 * Private attributes are not inherited
 
-* Relationship between derived and base classes
+* Relationship between derived ans base classes
 
 ~~~
 issubclass(DerivedClass, BaseClass) #True or False
@@ -268,28 +316,28 @@ class DerivedClass(moduleName.BaseClass):
 ### Example employee class
 
 ~~~python
->>> class Person:
-...     def __init__(self, given_name, surname):
-...         self.given_name = given_name
-...         self.surname = surname
-... 
-...     def get_person(self):
-...         return "Person : " + self.given_name + " " + self.surname
+class Person:
+    number = 0
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
 
->>> class Employee(Person):
-...    def __init__(self, given_name, surname, salary):
-...        super().__init__(given_name, surname)
-...        self.salary = salary
-...
-...    def get_employee(self):
-...        return self.get_person() + ", salary: " + str(self.salary)
+    def whoami(self):
+        return f"My name is {self.last_name}, {self.first_name} {self.last_name}"
 
+class Employee(Person):
+   def __init__(self, given_name, surname, salary):
+       super().__init__(given_name, surname)
+       self.salary = salary
+
+   def show_wage(self):
+       return f"{self.whoami()}, and I earn {self.salary} kr"
 ~~~
 
 ~~~
->>> e = Employee('John', 'Doe', 29500)
->>> print(e.get_employee())
-Person : John Doe, salary: 29500
+>>> e = Employee('John', 'Doe', 30000)
+>>> print(e.show_wage())
+My name is Doe, John Doe, and I earn 30000
 
 ~~~
 
@@ -332,7 +380,8 @@ Felix chases mouse
 ~~~
 
 ---
-~~~python
+
+~~~
 >>> class Animal:
 ...     def __init__(self, name):
 ...         self.name = name
@@ -347,14 +396,27 @@ Felix chases mouse
 ... 
 ...     def chase(self):
 ...         print("Don't know what", self.name, "chases")
-... 
+
+~~~
+~~~python
+>>> animal = Animal('Horse')
+>>> animal.action()
+Horse is a Animal
+Don't know what Horse sounds like
+Don't know what Horse chases
+
+~~~
+---
+~~~
 >>> class Dog(Animal):
 ...     def make_sound(self):
 ...         print(self.name, "says 'Bow-wow!'")
 ... 
 ...     def chase(self):
 ...         print(self.name, "chases cat")
-... 
+
+~~~
+~~~
 >>> class Cat(Animal):
 ...     def make_sound(self):
 ...         print(self.name, "says 'Meow'!")
@@ -363,8 +425,9 @@ Felix chases mouse
 ...         print(self.name, "chases mouse")
 
 ~~~
-~~~
->>> Cat('Felix').action()
+~~~python
+>>> cat = Cat('Felix')
+>>> cat.action()
 Felix is a Cat
 Felix says 'Meow'!
 Felix chases mouse
@@ -378,7 +441,7 @@ Felix chases mouse
 
 Are often used to illustrate dependencies between classes
 
-<img src="{{ base }}/img/classes.png">
+![<diagram image>](img/classes.png)
 
 * each class is represented by a box
 * each box is divided name, attributes, methods
